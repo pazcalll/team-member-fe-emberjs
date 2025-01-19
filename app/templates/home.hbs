@@ -1,0 +1,8 @@
+{{page-title "Home"}}
+{{outlet}}
+{{#each @model.teams as |team|}}
+  <div class="team">
+    <h2>{{team.name}}</h2>
+    <p>{{team.description}}</p>
+  </div>
+{{/each}}
