@@ -4,12 +4,19 @@
     <div class="row">
         {{#each @model.teams as |team|}}
         <div class="col mb-4 mt-4">
-            <LinkTo class="card text-decoration-none" style="width: 18rem;" @route="team-details" @model="{{ team.id }}">
+            <div class="card text-decoration-none" style="width: 18rem;">
                 <div class="card-body">
                     <h2 class="card-title">{{team.name}}</h2>
                     <p class="card-text">{{team.description}}</p>
                 </div>
-            </LinkTo>
+                <div class="card-footer">
+                  <div class="btn-group">
+                    <LinkTo @route="team-details" @model={{team.id}} class="btn btn-primary">View Team</LinkTo>
+                    <button class="btn btn-warning" type="button">Edit Team</button>
+                    <button class="btn btn-danger" type="button">Remove Team</button>
+                  </div>
+                </div>
+            </div>
         </div>
         {{/each}}
     </div>
