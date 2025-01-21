@@ -1,19 +1,32 @@
 {{page-title "TeamDetails"}}
 
-<div class="flex justify-content-center">
-    <h1>{{@model.team.name}}</h1>
-    <small>{{@model.team.description}}</small>
+<div style="width: 100%;">
+  <div class="row" style="width: 100%;">
+    <div class="col">
+      <h1>{{@model.team.name}}</h1>
+      <small>{{@model.team.description}}</small>
+    </div>
+    <div class="col"></div>
+    <div class="col d-flex justify-content-end">
+      <button class="btn btn-info text-white" style="height: 100%; min-height: 4rem; min-width: 4rem">Add Member</button>
+    </div>
+  </div>
 </div>
 
 <div class="container text-center">
     <div class="row">
         {{#each @model.members as |member|}}
-        <div class="col mb-4 mt-4">
-            <a class="card text-decoration-none" style="width: 18rem;">
-                <div class="card-body">
-                    <h2 class="card-title">{{member.name}}</h2>
-                    <p class="card-text">{{member.role}}</p>
-                </div>
+        <div class="col mb-4 mt-4 d-flex justify-content-center">
+            <a class="card text-decoration-none d-block" style="width: 18rem;">
+              <div class="card-head d-flex justify-content-end">
+                <button class="btn btn-danger">
+                  Remove
+                </button>
+              </div>
+              <div class="card-body">
+                  <h2 class="card-title">{{member.name}}</h2>
+                  <p class="card-text">{{member.role}}</p>
+              </div>
             </a>
         </div>
         {{/each}}

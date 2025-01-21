@@ -6,7 +6,7 @@ export default class TeamDetailsRoute extends Route {
     const members = await fetch(`http://localhost:3000/api/teams/${params.id}/members`).then((response) => response.json());
     return {
       team: team,
-      members: members
+      members: members,
     };
   }
 }
