@@ -1,35 +1,43 @@
-
 <div style="width: 100%;">
-  <div class="row" style="width: 100%;">
+  <div class="row align-items-center" style="width: 100%;">
+    <div class="col-auto">
+      <button style="background-color: transparent; border: none; outline: none;" title="Back" onclick="window.history.back()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
+          class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd"
+            d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
+        </svg>
+      </button>
+    </div>
     <div class="col">
       <h1>{{this.team.name}}</h1>
       <small>{{this.team.description}}</small>
     </div>
-    <div class="col"></div>
     <div class="col d-flex justify-content-end">
-      <button data-bs-target="#addMember" data-bs-toggle="modal" class="btn btn-info text-white" style="height: 100%; min-height: 4rem; min-width: 4rem">Add Member</button>
+      <button data-bs-target="#addMember" data-bs-toggle="modal" class="btn btn-info text-white"
+        style="height: 100%; min-height: 4rem; min-width: 4rem">Add Member</button>
     </div>
   </div>
 </div>
 
 <div class="container text-center">
-    <div class="row">
-        {{#each this.members as |member|}}
-        <div class="col mb-4 mt-4 d-flex justify-content-center">
-            <a class="card text-decoration-none d-block" style="width: 18rem;">
-              <div class="card-head d-flex justify-content-end">
-                <button class="btn btn-danger" {{on "click" (fn this.deleteMember member.id)}}>
-                  Remove
-                </button>
-              </div>
-              <div class="card-body">
-                  <h2 class="card-title">{{member.name}}</h2>
-                  <p class="card-text">{{member.role}}</p>
-              </div>
-            </a>
+  <div class="row">
+    {{#each this.members as |member|}}
+    <div class="col mb-4 mt-4 d-flex justify-content-center">
+      <a class="card text-decoration-none d-block" style="width: 18rem;">
+        <div class="card-head d-flex justify-content-end">
+          <button class="btn btn-danger" {{on "click" (fn this.deleteMember member.id)}}>
+            Remove
+          </button>
         </div>
-        {{/each}}
+        <div class="card-body">
+          <h2 class="card-title">{{member.name}}</h2>
+          <p class="card-text">{{member.role}}</p>
+        </div>
+      </a>
     </div>
+    {{/each}}
+  </div>
 </div>
 {{!-- {{yield}} --}}
 
