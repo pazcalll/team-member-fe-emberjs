@@ -1,12 +1,8 @@
 <div style="width: 100%;">
   <div class="row align-items-center" style="width: 100%;">
     <div class="col-auto">
-      <button style="background-color: transparent; border: none; outline: none;" title="Back" onclick="window.history.back()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="2rem" height="2rem" fill="currentColor"
-          class="bi bi-arrow-return-left" viewBox="0 0 16 16">
-          <path fill-rule="evenodd"
-            d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
-        </svg>
+      <button class="btn btn-info" title="Back" {{on "click" this.goToMainPage}}>
+        Go to Main Menu
       </button>
     </div>
     <div class="col">
@@ -26,9 +22,15 @@
     <div class="col mb-4 mt-4 d-flex justify-content-center">
       <a class="card text-decoration-none d-block" style="width: 18rem;">
         <div class="card-head d-flex justify-content-end">
-          <button class="btn btn-danger" {{on "click" (fn this.deleteMember member.id)}}>
-            Remove
-          </button>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button class="btn btn-danger" {{on "click" (fn this.deleteMember member.id)}}>
+              Remove
+            </button>
+            <button class="btn btn-warning" data-bs-target="#editMember" data-bs-toggle="modal"
+              {{on "click" (fn this.editMember member)}}>
+              Edit
+            </button>
+          </div>
         </div>
         <div class="card-body">
           <h2 class="card-title">{{member.name}}</h2>
@@ -41,8 +43,7 @@
 </div>
 {{!-- {{yield}} --}}
 
-<!-- Vertically centered modal -->
-<div class="modal fade" id="addMember" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="addMember" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="addMemberLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -75,6 +76,45 @@
             </tbody>
           </table>
           <button type="submit" class="btn btn-primary mt-3">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editMember" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editMemberLabel">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editMemberLabel">Add Member</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form {{on "submit" this.updateMember}}>
+          <table class="w-100">
+            <tbody class="w-100">
+              <tr class="w-100">
+                <td>
+                  <label for="name">Name</label>
+                </td>
+                <td>:</td>
+                <td class="w-75">
+                  <input type="text" class="form-control" placeholder="Name" id="name" name="name" value={{this.memberInEdit.name}}>
+                </td>
+              </tr>
+              <tr class="w-100">
+                <td>
+                  <label for="role">Role</label>
+                </td>
+                <td>:</td>
+                <td class="w-75">
+                  <input type="text" class="form-control" placeholder="Role" id="role" name="role" value={{this.memberInEdit.role}}>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button type="submit" class="btn btn-warning mt-3">Update</button>
         </form>
       </div>
     </div>
