@@ -1,5 +1,5 @@
-import EmberRouter from '@ember/routing/router';
-import config from 'team-management/config/environment';
+import EmberRouter from "@ember/routing/router";
+import config from "team-management/config/environment";
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -7,6 +7,6 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('home');
-  this.route('team-details', {path: '/:id'});
+  this.route("home");
+  this.route("team-details", { path: "/team-details/:id" });
 });

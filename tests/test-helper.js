@@ -1,9 +1,9 @@
-import Application from 'team-management/app';
-import config from 'team-management/config/environment';
-import * as QUnit from 'qunit';
-import { setApplication } from '@ember/test-helpers';
-import { setup } from 'qunit-dom';
-import { start } from 'ember-qunit';
+import Application from "team-management/app";
+import config from "team-management/config/environment";
+import * as QUnit from "qunit";
+import { setApplication } from "@ember/test-helpers";
+import { setup } from "qunit-dom";
+import { start } from "ember-qunit";
 
 setApplication(Application.create(config.APP));
 

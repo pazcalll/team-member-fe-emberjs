@@ -1,11 +1,11 @@
-import { module, test } from 'qunit';
-import { setupTest } from 'team-management/tests/helpers';
+import { module, test } from "qunit";
+import { setupTest } from "team-management/tests/helpers";
 
-module('Unit | Route | home', function (hooks) {
+module("Unit | Route | home", function (hooks) {
   setupTest(hooks);
 
-  test('it exists', function (assert) {
-    let route = this.owner.lookup('route:home');
+  test("it exists", function (assert) {
+    let route = this.owner.lookup("route:home");
     assert.ok(route);
   });
 });

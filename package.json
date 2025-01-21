@@ -81,6 +81,7 @@
     "edition": "octane"
   },
   "dependencies": {
-    "team-management": "file:"
+    "team-management": "file:",
+    "toastr": "^2.1.4"
   }
 }
