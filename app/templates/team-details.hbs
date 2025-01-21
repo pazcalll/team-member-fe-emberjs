@@ -1,2 +1,23 @@
 {{page-title "TeamDetails"}}
-{{outlet}}asdfasdfasd
+
+<div class="flex justify-content-center">
+    <h1>{{@model.team.name}}</h1>
+    <small>{{@model.team.description}}</small>
+</div>
+
+<div class="container text-center">
+    <div class="row">
+        {{#each @model.members as |member|}}
+        <div class="col mb-4 mt-4">
+            <a class="card text-decoration-none" style="width: 18rem;">
+                <div class="card-body">
+                    <h2 class="card-title">{{member.name}}</h2>
+                    <p class="card-text">{{member.role}}</p>
+                </div>
+            </a>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+{{!-- {{outlet}} --}}
