@@ -1,6 +1,13 @@
 {{page-title "TeamDetails"}}
 
-<TeamMemberDetail @team={{this.model.team}} @members={{this.model.members}} />
+<div style="width: 100%;">
+  <TeamMemberHeader @team={{this.model.team}} />
+</div>
+
+<TeamMemberDetail
+  @team={{this.model.team}}
+  @members={{this.model.members}}
+  />
 
 {{!-- Add Member Modal --}}
 
