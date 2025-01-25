@@ -7,32 +7,27 @@ import { inject as service } from "@ember/service";
 
 export default class TeamMemberDetail extends Component {
   @tracked team;
-  @tracked members;
-
+  @service("provider/members") members;
   @service("card-form-fields") memberInEdit;
+  @service("member") member;
 
   @service router;
 
   constructor() {
     super(...arguments);
     this.team = this.args?.team;
-    this.members = this.args?.members;
+    this.members.data = this.args?.members;
   }
 
   @action
-  async deleteMember(memberId) {
-    const response = await fetch(
-      `http://localhost:3000/api/teams/${this.team.id}/members/${memberId}`,
-      {
-        method: "DELETE",
-      },
-    );
-
-    if (!response.ok) {
-      toastr.error("Failed to delete member");
-    } else {
-      this.members = this.members.filter((member) => member.id !== memberId);
+  async deleteMember(member) {
+    try {
+      await this.member.deleteMember(member);
+      const getMembers = await this.member.getMembers(this.team);
+      this.members.data = getMembers;
       toastr.success("Member deleted successfully");
+    } catch (error) {
+      toastr.error(error);
     }
   }
 
@@ -60,7 +55,7 @@ export default class TeamMemberDetail extends Component {
       toastr.error("Failed to edit member");
     } else {
       const data = await response.json();
-      this.members = this.members.map((member) =>
+      this.members.data = this.members.data.map((member) =>
         member.id === this.memberInEdit.id ? data : member,
       );
       toastr.success("Member edited successfully");

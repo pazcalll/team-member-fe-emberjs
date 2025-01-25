@@ -7,13 +7,13 @@ export default class ApiResponseService extends Service {
     let response;
 
     if (apiResponse.ok) response = await apiResponse.json();
-    else this.apiErrorHandler(await apiResponse.json());
+    else this.errorHandler(await apiResponse.json());
 
     return response;
   }
 
   @action
-  async errorHandler(apiResponse /*, named*/) {
+  errorHandler(apiResponse /*, named*/) {
     throw Error(apiResponse.error?.message ?? "Action failed");
   }
 }

@@ -22,9 +22,9 @@ export default class MemberService extends Service {
   }
 
   @action
-  async getMembers(teamId) {
+  async getMembers(team) {
     let members = await fetch(
-      `http://localhost:3000/api/teams/${teamId}/members`,
+      `http://localhost:3000/api/teams/${team.id}/members`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export default class MemberService extends Service {
   @action
   async updateMember(member) {
     const updateMemberResponse = await fetch(
-      `http://localhost:3000/api/teams/${this.team.id}/members/${this.memberInEdit.id}`,
+      `http://localhost:3000/api/members/${this.memberInEdit.id}`,
       {
         method: "PUT",
         headers: {
@@ -50,5 +50,17 @@ export default class MemberService extends Service {
     );
 
     return await this.apiResponse.handler(updateMemberResponse);
+  }
+
+  @action
+  async deleteMember(member) {
+    const response = await fetch(
+      `http://localhost:3000/api/members/${member.id}`,
+      {
+        method: "DELETE",
+      },
+    );
+
+    return await this.apiResponse.handler(response);
   }
 }

@@ -7,11 +7,11 @@ import { inject as service } from "@ember/service";
 
 export default class TeamMemberHeader extends Component {
   @tracked team = this.args?.team;
-  @tracked members = this.args?.members;
 
   @service router;
   @service("card-form-fields") memberForm;
   @service("member") member;
+  @service("provider/members") members;
 
   constructor() {
     super(...arguments);
@@ -46,8 +46,8 @@ export default class TeamMemberHeader extends Component {
 
     try {
       await this.member.createMember(member);
-      const getMembers = await this.member.getMembers(this.team.id);
-      this.members = getMembers;
+      const getMembers = await this.member.getMembers(this.team);
+      this.members.data = getMembers;
       toastr.success("Member added successfully");
     } catch (error) {
       toastr.error(error);
