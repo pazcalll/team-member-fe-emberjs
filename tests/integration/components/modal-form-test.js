@@ -3,22 +3,22 @@ import { setupRenderingTest } from "team-management/tests/helpers";
 import { render } from "@ember/test-helpers";
 import { hbs } from "ember-cli-htmlbars";
 
-module("Integration | Component | add-team", function (hooks) {
+module("Integration | Component | modal-form", function (hooks) {
   setupRenderingTest(hooks);
 
   test("it renders", async function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<AddTeam />`);
+    await render(hbs`<ModalForm />`);
 
     assert.dom().hasText("");
 
     // Template block usage:
     await render(hbs`
-      <AddTeam>
+      <ModalForm>
         template block text
-      </AddTeam>
+      </ModalForm>
     `);
 
     assert.dom().hasText("template block text");

@@ -6,12 +6,18 @@ import { action } from "@ember/object";
 import { inject as service } from "@ember/service";
 
 export default class TeamMemberDetail extends Component {
-  @tracked team = this.args?.team;
-  @tracked members = this.args?.members;
+  @tracked team;
+  @tracked members;
 
-  @tracked memberInEdit = null;
+  @service("card-form-fields") memberInEdit;
 
   @service router;
+
+  constructor() {
+    super(...arguments);
+    this.team = this.args?.team;
+    this.members = this.args?.members;
+  }
 
   @action
   async deleteMember(memberId) {
@@ -62,7 +68,22 @@ export default class TeamMemberDetail extends Component {
   }
 
   @action
-  async editMember(member) {
-    this.memberInEdit = member;
+  editMember(member) {
+    this.memberInEdit.updateFormFields([
+      {
+        label: "Name",
+        type: "text",
+        placeholder: "Name",
+        name: "name",
+        value: member.name,
+      },
+      {
+        label: "Role",
+        type: "text",
+        placeholder: "Role",
+        name: "role",
+        value: member.role,
+      },
+    ]);
   }
 }

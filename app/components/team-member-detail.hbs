@@ -25,38 +25,9 @@
 </div>
 {{!-- {{yield}} --}}
 
-
-<div class="modal fade" id="editMember" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="editMemberLabel">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="editMemberLabel">Edit Member</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <CardForm
-          @action={{this.updateMember}}
-          @formFields={{
-            [
-              {
-                "label": "Name",
-                "type": "text",
-                "placeholder": "Name",
-                "name": "name",
-                "value": this.memberInEdit.name
-              },
-              {
-                "label": "Role",
-                "type": "text",
-                "placeholder": "Role",
-                "name": "role",
-                "value": this.memberInEdit.role
-              }
-            ]
-          }}
-          />
-      </div>
-    </div>
-  </div>
-</div>
+<ModalForm @id="editMember" @title="Edit Member">
+  <CardForm
+    @action={{this.updateMember}}
+    @submitWording="Update"
+    />
+</ModalForm>

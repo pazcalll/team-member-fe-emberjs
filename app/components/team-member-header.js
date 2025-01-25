@@ -7,8 +7,27 @@ import { inject as service } from "@ember/service";
 
 export default class TeamMemberHeader extends Component {
   @tracked team = this.args?.team;
+  @tracked members = this.args?.members;
 
   @service router;
+  @service("card-form-fields") memberForm;
+  @service("member") member;
+
+  constructor() {
+    super(...arguments);
+    this.memberForm.updateFormFields([
+      {
+        label: "Name",
+        name: "name",
+        placeholder: "Enter member name",
+      },
+      {
+        label: "Role",
+        name: "role",
+        placeholder: "Enter member role",
+      },
+    ]);
+  }
 
   @action
   goToMainPage() {
@@ -24,25 +43,14 @@ export default class TeamMemberHeader extends Component {
       role: formData.get("role"),
       teamId: this.team.id,
     };
-    const response = await fetch(
-      `http://localhost:3000/api/teams/${this.team.id}/members`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(member),
-      },
-    );
 
-    if (!response.ok) {
-      toastr.error("Failed to add member");
-    } else {
-      event.target.reset();
-      const data = await response.json();
-      this.members = [...this.members, data];
+    try {
+      await this.member.createMember(member);
+      const getMembers = await this.member.getMembers(this.team.id);
+      this.members = getMembers;
       toastr.success("Member added successfully");
+    } catch (error) {
+      toastr.error(error);
     }
   }
 }

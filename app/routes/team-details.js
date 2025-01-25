@@ -1,21 +1,24 @@
-import { action } from "@ember/object";
 import Route from "@ember/routing/route";
 import toastr from "toastr";
 import "toastr/build/toastr.css";
+import { inject as service } from "@ember/service";
 
 export default class TeamDetailsRoute extends Route {
-  async model(params) {
-    let team = await fetch(`http://localhost:3000/api/teams/${params.id}`);
-    if (team.ok) team = await team.json();
+  @service team;
 
-    let members = await fetch(
-      `http://localhost:3000/api/teams/${params.id}/members`,
-    );
-    if (members.ok) members = await members.json();
+  async model(params) {
+    let team;
+    let teamMembers;
+    try {
+      team = await this.team.getTeam(params.team_id);
+      teamMembers = await this.team.getTeamMembers(params.team_id);
+    } catch (error) {
+      toastr.error(error);
+    }
 
     return {
       team: team,
-      members: members,
+      members: teamMembers,
     };
   }
 }

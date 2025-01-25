@@ -1,17 +1,17 @@
 <form {{on "submit" this.action}}>
   <table class="w-100">
     <tbody class="w-100">
-      {{#each this.formFields as |field|}}
-      <tr class="w-100">
-        <td>
-          <label for={{field.name}}>{{field.label}}</label>
-        </td>
-        <td>:</td>
-        <td class="w-75">
-          <input type={{field.type ?? 'text'}} class="form-control" placeholder={{field.placeholder ?? 'Insert your text here'}} id={{field.name}}
-            name={{field.name}}>
-        </td>
-      </tr>
+      {{#each this.cardFormFields.formFields as |field|}}
+        <tr class="w-100">
+          <td>
+            <label for={{field.name}}>{{field.label}}</label>
+          </td>
+          <td>:</td>
+          <td class="w-75">
+            <input type={{if field.type field.type "text"}} class="form-control" placeholder={{if field.placeholder field.placeholder "Write here"}} id={{field.name}}
+              name={{field.name}} value="{{if field.value field.value ""}}">
+          </td>
+        </tr>
       {{/each}}
     </tbody>
   </table>
