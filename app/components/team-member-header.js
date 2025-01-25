@@ -13,20 +13,24 @@ export default class TeamMemberHeader extends Component {
   @service("member") member;
   @service("provider/members") members;
 
+  addFormFields = [
+    {
+      label: "Name",
+      name: "name",
+      placeholder: "Enter member name",
+      value: "",
+    },
+    {
+      label: "Role",
+      name: "role",
+      placeholder: "Enter member role",
+      value: "",
+    },
+  ];
+
   constructor() {
     super(...arguments);
-    this.memberForm.updateFormFields([
-      {
-        label: "Name",
-        name: "name",
-        placeholder: "Enter member name",
-      },
-      {
-        label: "Role",
-        name: "role",
-        placeholder: "Enter member role",
-      },
-    ]);
+    this.memberForm.updateFormFields(this.addFormFields);
   }
 
   @action
@@ -49,8 +53,15 @@ export default class TeamMemberHeader extends Component {
       const getMembers = await this.member.getMembers(this.team);
       this.members.data = getMembers;
       toastr.success("Member added successfully");
+      event.target.reset();
     } catch (error) {
       toastr.error(error);
     }
+  }
+
+  @action
+  async resetForm() {
+    this.memberForm.updateData(null);
+    this.memberForm.updateFormFields(this.addFormFields);
   }
 }

@@ -9,7 +9,7 @@
     <small>{{this.team.description}}</small>
   </div>
   <div class="col d-flex justify-content-end">
-    <button data-bs-target="#addMember" data-bs-toggle="modal" class="btn btn-info text-white"
+    <button data-bs-target="#addMember" data-bs-toggle="modal" class="btn btn-info text-white" {{on "click" this.resetForm}}
       style="height: 100%; min-height: 4rem; min-width: 4rem">Add Member</button>
   </div>
 </div>

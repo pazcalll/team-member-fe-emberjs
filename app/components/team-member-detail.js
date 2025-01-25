@@ -39,31 +39,19 @@ export default class TeamMemberDetail extends Component {
       name: formData.get("name"),
       role: formData.get("role"),
     };
-    const response = await fetch(
-      `http://localhost:3000/api/teams/${this.team.id}/members/${this.memberInEdit.id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify(member),
-      },
-    );
-
-    if (!response.ok) {
-      toastr.error("Failed to edit member");
-    } else {
-      const data = await response.json();
-      this.members.data = this.members.data.map((member) =>
-        member.id === this.memberInEdit.id ? data : member,
-      );
-      toastr.success("Member edited successfully");
+    try {
+      await this.member.updateMember(this.memberInEdit.data.id, member);
+      const getMembers = await this.member.getMembers(this.team);
+      this.members.data = getMembers;
+      toastr.success("Member updated successfully");
+    } catch (error) {
+      toastr.error(error);
     }
   }
 
   @action
   editMember(member) {
+    this.memberInEdit.updateData(member);
     this.memberInEdit.updateFormFields([
       {
         label: "Name",

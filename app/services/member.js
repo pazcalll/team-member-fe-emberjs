@@ -36,11 +36,11 @@ export default class MemberService extends Service {
   }
 
   @action
-  async updateMember(member) {
+  async updateMember(memberId, member) {
     const updateMemberResponse = await fetch(
-      `http://localhost:3000/api/members/${this.memberInEdit.id}`,
+      `http://localhost:3000/api/members/${memberId}`,
       {
-        method: "PUT",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
