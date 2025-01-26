@@ -13,7 +13,7 @@
                 <div class="card-footer">
                   <div class="btn-group">
                     <LinkTo @route="team-details" @model={{team.id}} class="btn btn-primary">View Team</LinkTo>
-                    <button class="btn btn-warning" type="button">Edit Team</button>
+                    <button data-bs-target="#editTeam" data-bs-toggle="modal" class="btn btn-warning" type="button" {{on "click" (fn this.editTeam team)}}>Edit Team</button>
                     <button class="btn btn-danger" type="button" {{on "click" (fn this.removeTeam team)}}>Remove Team</button>
                   </div>
                 </div>
@@ -22,6 +22,10 @@
         {{/each}}
     </div>
 </div>
+
+<ModalForm @id="editTeam" @title="Edit Team">
+  <CardForm @action={{this.updateTeam}} @submitWording="Update" />
+</ModalForm>
 
 <ModalForm @id="addTeam" @title="Add Team">
   <CardForm @action={{this.addTeam}} @submitWording="Add" />

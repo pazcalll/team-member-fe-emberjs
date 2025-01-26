@@ -48,4 +48,17 @@ export default class TeamService extends Service {
 
     return await this.apiResponse.handler(response);
   }
+
+  @action
+  async updateTeam(teamId, data) {
+    let response = await fetch(`http://localhost:3000/api/teams/${teamId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    return await this.apiResponse.handler(response);
+  }
 }

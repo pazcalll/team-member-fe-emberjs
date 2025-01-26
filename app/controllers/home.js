@@ -9,6 +9,7 @@ export default class HomeController extends Controller {
   @service("member") memberRequest;
   @service("card-form-fields") cardFormFields;
   @tracked teams = this.model.teams;
+  @tracked teamInEdit = null;
 
   addFormFields = [
     {
@@ -61,6 +62,44 @@ export default class HomeController extends Controller {
       console.log(error);
       toastr.error(error);
     }
+  }
+
+  @action
+  async updateTeam(event) {
+    try {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const team = {
+        name: formData.get("name"),
+        description: formData.get("description"),
+      };
+
+      await this.teamRequest.updateTeam(this.teamInEdit.id, team);
+      this.teams = await this.teamRequest.getTeams();
+      toastr.success("Team updated successfully");
+    } catch (error) {
+      console.log(error);
+      toastr.error(error);
+    }
+  }
+
+  @action
+  editTeam(team) {
+    this.teamInEdit = team;
+    this.cardFormFields.updateFormFields([
+      {
+        label: "Name",
+        name: "name",
+        placeholder: "Enter team name",
+        value: team.name,
+      },
+      {
+        label: "Description",
+        name: "description",
+        placeholder: "Enter team description",
+        value: team.description,
+      },
+    ]);
   }
 
   @action
