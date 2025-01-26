@@ -22,4 +22,30 @@ export default class TeamService extends Service {
     );
     return await this.apiResponse.handler(members);
   }
+
+  @action
+  async createTeam(team) {
+    let newTeam = await fetch("http://localhost:3000/api/teams", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(team),
+    });
+    return await this.apiResponse.handler(newTeam);
+  }
+
+  @action
+  async removeTeam(team) {
+    fetch(`http://localhost:3000/api/teams/${team.id}/members`, {
+      method: "DELETE",
+    });
+    let response = null;
+
+    response = await fetch(`http://localhost:3000/api/teams/${team.id}`, {
+      method: "DELETE",
+    });
+
+    return await this.apiResponse.handler(response);
+  }
 }

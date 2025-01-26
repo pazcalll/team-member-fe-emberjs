@@ -14,6 +14,6 @@ export default class ApiResponseService extends Service {
 
   @action
   errorHandler(apiResponse /*, named*/) {
-    throw Error(apiResponse.error?.message ?? "Action failed");
+    throw Error(apiResponse?.error?.message ?? "Action failed");
   }
 }
